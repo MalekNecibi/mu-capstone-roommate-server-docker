@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+motor
+pydantic
+email-validator
+typing-extensions
+
+# FastAPI JWT Auth
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
