@@ -3,8 +3,8 @@ FROM python:3.10
 # WORKDIR /
 
 # RUN pip3 install --upgrade pip3
-COPY ./requirements.txt /
-RUN pip3 install -r ./requirements.txt --root-user-action=ignore
+COPY ./requirements.txt /tmp/
+RUN pip3 install -r /tmp/requirements.txt --root-user-action=ignore
 
 
 COPY /app/ app/
