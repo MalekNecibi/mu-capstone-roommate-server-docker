@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI, Body, HTTPException, status
-from fastapi.responses import Response, JSONResponse
+from fastapi.responses import Response, JSONResponse, RedirectResponse
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field, EmailStr
 from bson import ObjectId
@@ -8,35 +8,24 @@ from typing import Optional, List
 import motor.motor_asyncio
 
 # Relative/Local Imports 
-
 from models import PyObjectId, UserIDModel, UserModel
-
 from auth import * # Token, TokenData, User, UserInDB
 
-
-# # JWT Auth dependencies
-# from datetime import datetime, timedelta
-# from fastapi import Depends
-# from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-# from jose import JWTError, jwt
-# from passlib.context import CryptContext
-
-# # JWT AUTH Config 
-# pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
-app = FastAPI()
+# db connection config
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.Generic_Bunkies
+
+
+# Initiliaze server
+app = FastAPI()
 
 
 # ***** BEGIN ENDPOINTS *****
 
 @app.get("/", response_description="Default Landing Page")
 async def index():
-    return {"title": "Welcome to Bunkiez!"}
-    # return students
+    return  RedirectResponse(url='/docs')
+    #return {"title": "Welcome to Bunkiez!"}
 
 @app.get("/user", response_model=UserModel)
 async def user(id: PyObjectId):
@@ -53,7 +42,7 @@ async def users(count: int = 1000):
     return await db["UserbaseB"].find().to_list(count)
 
 @app.get("/usersB")
-async def usersB():
+async def fetch_userbase_b():
     # poll database
     # return ALL users?
     
@@ -75,7 +64,7 @@ def matches():
     # return id's of relevant matches
     return {"User":"Information"}
 
-"""
+
 @app.post("/register")
 def register():
     return {"User":"Information"}
@@ -89,7 +78,7 @@ def auth():
 def auth():
     # return a JWT token
     return {"Token":"encoded_token"}
-"""
+
 
 
 

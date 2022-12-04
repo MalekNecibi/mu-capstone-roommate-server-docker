@@ -4,6 +4,7 @@ pushImage () {
     local image_name="mu-capstone-roommate-server-docker_core_api"
     
     # stop existing instance(s)
+    # docker rm $(docker stop $(docker ps -a -q --filter ancestor=$image_name))
     docker stop $(docker ps -a -q  --filter ancestor=$image_name)
     
     # rebuild the image

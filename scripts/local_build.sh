@@ -1,8 +1,8 @@
 localBuild () {
     local image_name="mu-capstone-roommate-server-docker_core_api"
     
-    # docker rm $(docker stop $(docker ps -a -q  --filter ancestor=mu-cap^Cone-roommate-server-docker_core_api))
-    docker stop $(docker ps -a -q  --filter ancestor=$image_name)
+    docker rm $(docker stop $(docker ps -a -q --filter ancestor=$image_name))
+    # docker stop $(docker ps -a -q --filter ancestor=$image_name)
     
     docker build -t $image_name .
     

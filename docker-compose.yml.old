@@ -1,9 +1,0 @@
-version: '3'
-services:
-  core_api:
-    build: .
-    container_name: "bunkiez-api-server-container"
-    ports:
-      - "8200:15400"
-    volumes:
-      - ./app/:/app
