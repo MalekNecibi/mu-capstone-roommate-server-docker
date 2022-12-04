@@ -1,11 +1,14 @@
 FROM python:3.10
-# EXPOSE 8000
 
-WORKDIR /app
+# WORKDIR /
 
-COPY ./requirements.txt .
 # RUN pip3 install --upgrade pip3
+COPY ./requirements.txt /
 RUN pip3 install -r ./requirements.txt --root-user-action=ignore
+
+
+COPY /app/ app/
+WORKDIR ./app
 
 # to get a string like this run:
 # openssl rand -hex 32
